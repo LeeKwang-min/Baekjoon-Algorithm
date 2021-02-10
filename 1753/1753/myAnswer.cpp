@@ -1,34 +1,41 @@
 /*
-ÀÛ¼ºÀÚ : ÀÌ»ó¼ö
-ÀÏ½Ã : 2021.02.10
-Á¦¸ñ : ÃÖ´Ü°æ·Î - 1753
-Ç®ÀÌ : ´ÙÀÍ½ºÆ®¶ó¸¦ »ç¿ëÇÏ´Â ¹®Á¦
-	   ¾Æ·¡ ÁÖ¼®À¸·Î µÇ¾îÀÖ´Â ºÎºÐÀº Á÷°üÀûÀ¸·Î »ý°¢ÇÑ ¹æ½ÄÀ¸·Î O(n^2)°ú ¸Þ¸ð¸® ÃÊ°ú ¿¡·¯°¡ ³­´Ù
+ìž‘ì„±ìž : ì´ìƒìˆ˜
+ì¼ì‹œ : 2021.02.10
+ì œëª© : ìµœë‹¨ê²½ë¡œ - 1753
+í’€ì´ : ë‹¤ìµìŠ¤íŠ¸ë¼ë¥¼ ì‚¬ìš©í•˜ëŠ” ë¬¸ì œ
+	   ì•„ëž˜ ì£¼ì„ìœ¼ë¡œ ë˜ì–´ìžˆëŠ” ë¶€ë¶„ì€ ì§ê´€ì ìœ¼ë¡œ ìƒê°í•œ ë°©ì‹ìœ¼ë¡œ O(n^2)ê³¼ ë©”ëª¨ë¦¬ ì´ˆê³¼ ì—ëŸ¬ê°€ ë‚œë‹¤
 
-	   º» ÄÚµåÀÇ ³»¿ëÀº ÈüÀ» »ç¿ëÇÏ¿© Ç®ÀÌÇÑ ÄÚµåÀÌ´Ù.
-	   ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò¿¡¼­ Ç×»ó ÃÖ¼Ò ºñ¿ëÀ» °¡Áö´Â °ªÀ» °ñ¶ó¾ß ÇÏ´Âµ¥
-	   ÀÌ ¶§ ÃÖ¼Ò ÈüÀ» ¼±¾ðÇÏ¸é À¯¿ëÇÏ°Ô »ç¿ë °¡´ÉÇÏ´Ù.
+	   ë³¸ ì½”ë“œì˜ ë‚´ìš©ì€ íž™ì„ ì‚¬ìš©í•˜ì—¬ í’€ì´í•œ ì½”ë“œì´ë‹¤.
+	   ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜ì—ì„œ í•­ìƒ ìµœì†Œ ë¹„ìš©ì„ ê°€ì§€ëŠ” ê°’ì„ ê³¨ë¼ì•¼ í•˜ëŠ”ë°
+	   ì´ ë•Œ ìµœì†Œ íž™ì„ ì„ ì–¸í•˜ë©´ ìœ ìš©í•˜ê²Œ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
 
-	   °úÁ¤Àº ´ÙÀ½°ú °°´Ù.
-	   1. °¢ °£¼± Á¤º¸¸¦ (ºñ¿ë, µµÂøÁ¤Á¡) ÀúÀåÇÑ ´ÙÀ½ ¡Ú
-	   2. ½ÃÀÛ ³ëµå¸¦ Èü¿¡ ³Ö¾îÁØ´Ù. (0, ½ÃÀÛ³ëµå)
+	   ê³¼ì •ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.
+	   1. ê° ê°„ì„  ì •ë³´ë¥¼ (ë¹„ìš©, ë„ì°©ì •ì ) ì €ìž¥í•œ ë‹¤ìŒ â˜…
+	   2. ì‹œìž‘ ë…¸ë“œë¥¼ íž™ì— ë„£ì–´ì¤€ë‹¤. (0, ì‹œìž‘ë…¸ë“œ)
 	   
-	   3. Èü¿¡¼­ ºñ¿ëÀÌ °¡Àå ÀûÀº ¿ø¼Ò¸¦ ¼±ÅÃÇÑ´Ù. (ÃÖ¼ÒÈüÀ» »ç¿ëÇÏ±â ¶§¹®¿¡ ±×³É .top())
-	   4. ÇØ´ç ¿ø¼Ò´Â Èü¿¡¼­ Á¦°ÅÇÑ´Ù. (.pop())
-	   5. ÃÖ´Ü °Å¸® ¹è¿­(dist)ÀÇ °ª°ú ÈüÀÇ ºñ¿ëÀ» ºñ±³ÇÏ¿© °°Áö ¾ÊÀ¸¸é continue (dist[idx] != dst)
-	   6. °°Àº °æ¿ì
-		6.1. ÃÖ´Ü °Å¸® ¹è¿­ÀÇ °ª°ú ºñ±³ÇÏ¿© °°´Ù¸é ÇØ´ç Á¤Á¡¿¡¼­ °¥ ¼ö ÀÖ´Â ´Ù¸¥ Á¤Á¡µé(µµÂøÁ¡)À» 
-			 È®ÀÎÇÏ¿© ½ÃÀÛÁ¡¿¡¼­ µµÂøÁ¡±îÁö ¹Ù·Î°¡´Â °æ¿ì¿Í idx¸¦ °ÅÃÄ°¡´Â °æ¿ì¸¦ ºñ±³ÇÏ¿© Ã³¸®
-			 ÇØÁÖ°í ±× °ªµéÀ» Èü¿¡ ³Ö¾îÁØ´Ù.
-		6.2. °ªÀÌ ´Ù¸£´Ù¸é ±×³É Èü¿¡¼­ Á¦°ÅÇÏ°í ³Ñ¾î°£´Ù.
-	   7. ÀÌ °úÁ¤À» ÈüÀÌ ºô¶§±îÁö ¹Ýº¹ÇÑ´Ù.
+	   3. íž™ì—ì„œ ë¹„ìš©ì´ ê°€ìž¥ ì ì€ ì›ì†Œë¥¼ ì„ íƒí•œë‹¤. (ìµœì†Œíž™ì„ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— ê·¸ëƒ¥ .top())
+	   4. í•´ë‹¹ ì›ì†ŒëŠ” íž™ì—ì„œ ì œê±°í•œë‹¤. (.pop())
+	   5. ìµœë‹¨ ê±°ë¦¬ ë°°ì—´(dist)ì˜ ê°’ê³¼ íž™ì˜ ë¹„ìš©ì„ ë¹„êµí•˜ì—¬ ê°™ì§€ ì•Šìœ¼ë©´ continue (dist[idx] != dst)
+	   6. ê°™ì€ ê²½ìš°
+		6.1. ìµœë‹¨ ê±°ë¦¬ ë°°ì—´ì˜ ê°’ê³¼ ë¹„êµí•˜ì—¬ ê°™ë‹¤ë©´ í•´ë‹¹ ì •ì ì—ì„œ ê°ˆ ìˆ˜ ìžˆëŠ” ë‹¤ë¥¸ ì •ì ë“¤(ë„ì°©ì )ì„ 
+			 í™•ì¸í•˜ì—¬ ì‹œìž‘ì ì—ì„œ ë„ì°©ì ê¹Œì§€ ë°”ë¡œê°€ëŠ” ê²½ìš°ì™€ idxë¥¼ ê±°ì³ê°€ëŠ” ê²½ìš°ë¥¼ ë¹„êµí•˜ì—¬ ì²˜ë¦¬
+			 í•´ì£¼ê³  ê·¸ ê°’ë“¤ì„ íž™ì— ë„£ì–´ì¤€ë‹¤.
+		6.2. ê°’ì´ ë‹¤ë¥´ë‹¤ë©´ ê·¸ëƒ¥ íž™ì—ì„œ ì œê±°í•˜ê³  ë„˜ì–´ê°„ë‹¤.
+	   7. ì´ ê³¼ì •ì„ íž™ì´ ë¹Œë•Œê¹Œì§€ ë°˜ë³µí•œë‹¤.
 
-	   8. ÃÖÁ¾ °ªÀ» Ãâ·ÂÇØÁØ´Ù.
+	   8. ìµœì¢… ê°’ì„ ì¶œë ¥í•´ì¤€ë‹¤.
 
-	   ±× À¯¸íÇÑ ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®ÁòÀÌ´Ù. ÈüÀ» »ç¿ëÇÏ´Â ¹æ½ÄÀº O(NlgN)À¸·Î Ã³¸®°¡ °¡´ÉÇÏ´Ù°í ÇÑ´Ù.
-	   ÀÌ °úÁ¤À» ÀÍÇôµÎ°í »ç¿ëÇÏÀÚ.
+	   ê·¸ ìœ ëª…í•œ ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜ì´ë‹¤. íž™ì„ ì‚¬ìš©í•˜ëŠ” ë°©ì‹ì€ O(NlgN)ìœ¼ë¡œ ì²˜ë¦¬ê°€ ê°€ëŠ¥í•˜ë‹¤ê³  í•œë‹¤.
+	   ì´ ê³¼ì •ì„ ìµí˜€ë‘ê³  ì‚¬ìš©í•˜ìž.
 
-	   ÇÃ·ÎÀÌµå¿Í ´ÙÀÍ½ºÆ®¶ó 2°¡Áö°¡ ÄÚµù Å×½ºÆ®¿¡¼­ ÁÖ·Î ¾²ÀÎ´Ù.
+	   í”Œë¡œì´ë“œì™€ ë‹¤ìµìŠ¤íŠ¸ë¼ 2ê°€ì§€ê°€ ì½”ë”© í…ŒìŠ¤íŠ¸ì—ì„œ ì£¼ë¡œ ì“°ì¸ë‹¤.
+	   
+	   ì¶”ê°€ì ìœ¼ë¡œ ê°„ì„  ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ë°©ì‹ì€
+	   vector<pair<int, int>> line[20001] ì¸ë°, ì´ ë¬¸ì œì—ì„œ ê·¸ëƒ¥ 2ì°¨ì› ë°°ì—´ë¡œ ì„ ì–¸í•˜ë©´ ë©”ëª¨ë¦¬ ì´ˆê³¼ê°€ ì¼ì–´ë‚œë‹¤.
+	   ë©”ëª¨ë¦¬ ì´ˆê³¼ê°€ ì¼ì–´ë‚˜ì§€ ì•Šë”ë¼ë„ ì´ê²Œ ë” íŽ¸í•˜ë‹¤.
+	   
+	   ì €ìž¥ ë°©ì‹ì€ line[í˜„ìž¬ì •ì ] = {ë¹„ìš©, ë‹¤ìŒì •ì } ìœ¼ë¡œ ì €ìž¥í•œë‹¤.
+	   ì•„ëž˜ ì½”ë“œì—ì„œ ì²˜ëŸ¼ ê° ê°’ì„ ìž˜ ì´ìš©í•˜ì—¬ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
 */
 #include <iostream>
 #include <queue>
@@ -37,34 +44,34 @@
 using namespace std;
 
 int n, m, k;
-const int INF = 1e9 + 10; // ¡Ú
+const int INF = 1e9 + 10; // â˜…
 int dist[20001];
-vector<pair<int, int>> arr[20001]; // °£¼± Á¤º¸¸¦ ÀúÀåÇÏ±â À§ÇÑ º¤ÅÍ 
-								   // 2Â÷¿ø ¹è¿­À» »ç¿ëÇÏÁö ¾Ê°í arr[Á¤Á¡] = {{ºñ¿ë, Á¤Á¡}} ÀÌ´Ù.
+vector<pair<int, int>> arr[20001]; // ê°„ì„  ì •ë³´ë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•œ ë²¡í„° 
+								   // 2ì°¨ì› ë°°ì—´ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  arr[ì •ì ] = {{ë¹„ìš©, ì •ì }} ì´ë‹¤.
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; 
-	// ÃÖ¼Ò ÈüÀ» »ç¿ëÇÏ¿© Ç×»ó ÃÖ¼Ò°ªÀÌ ¼±ÅÃµÇµµ·Ï ÇÑ´Ù.
+	// ìµœì†Œ íž™ì„ ì‚¬ìš©í•˜ì—¬ í•­ìƒ ìµœì†Œê°’ì´ ì„ íƒë˜ë„ë¡ í•œë‹¤.
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(NULL);
 	cin >> n >> m >> k;
-	fill(dist, dist + n + 1, INF); // ¡Ú
+	fill(dist, dist + n + 1, INF); // â˜…
 	while (m--) {
 		int a, b, c;
 		cin >> a >> b >> c;
-		arr[a].push_back({ c, b }); // ¡Ú
+		arr[a].push_back({ c, b }); // â˜…
 	}
 	dist[k] = 0;
-	pq.push({ dist[k], k }); // ½ÃÀÛÁ¡À» (0, ½ÃÀÛÁ¡) À¸·Î Èü¿¡ ³Ö´Â´Ù.
-	while (!pq.empty()) { // ´ÙÀÍ½ºÆ®¶ó Ã³¸® ½ÃÀÛ // ¡Ú
+	pq.push({ dist[k], k }); // ì‹œìž‘ì ì„ (0, ì‹œìž‘ì ) ìœ¼ë¡œ íž™ì— ë„£ëŠ”ë‹¤.
+	while (!pq.empty()) { // ë‹¤ìµìŠ¤íŠ¸ë¼ ì²˜ë¦¬ ì‹œìž‘ // â˜…
 		auto cur = pq.top();
 		pq.pop();
-		int dst = cur.first, idx = cur.second; // dst = ºñ¿ë, idx = Á¤Á¡
-		if (dist[idx] != dst) continue; // ÃÖ´Ü °Å¸® ¹è¿­°ú °ªÀÌ ´Ù¸£´Ù¸é continue
-		for (auto nxt : arr[idx]) { // nxt = idx¿¡¼­ °¥ ¼ö ÀÖ´Â Á¤Á¡µé Á¤º¸ (ºñ¿ë, Á¤Á¡)
-			int cost = nxt.first, nidx = nxt.second; // cost = ´ÙÀ½ Á¤Á¡±îÁö ºñ¿ë, nidx = ´ÙÀ½ Á¤Á¡
-			if (dist[nidx] > dst + cost) { // ÃÖ´Ü °Å¸® ¹è¿­°ú ºñ±³ÇÏ¿© °ÅÃÄ°¡´Â°Ô ´õ ½Î´Ù¸é
-				dist[nidx] = dst + cost; // ÃÖ´Ü °Å¸® ¹è¿­ÀÇ °ªÀ» º¯°æ
-				pq.push({ dist[nidx], nidx }); // ±× Á¤º¸¸¦ Èü¿¡ ´ã´Â´Ù.
+		int dst = cur.first, idx = cur.second; // dst = ë¹„ìš©, idx = ì •ì 
+		if (dist[idx] != dst) continue; // ìµœë‹¨ ê±°ë¦¬ ë°°ì—´ê³¼ ê°’ì´ ë‹¤ë¥´ë‹¤ë©´ continue
+		for (auto nxt : arr[idx]) { // nxt = idxì—ì„œ ê°ˆ ìˆ˜ ìžˆëŠ” ì •ì ë“¤ ì •ë³´ (ë¹„ìš©, ì •ì )
+			int cost = nxt.first, nidx = nxt.second; // cost = ë‹¤ìŒ ì •ì ê¹Œì§€ ë¹„ìš©, nidx = ë‹¤ìŒ ì •ì 
+			if (dist[nidx] > dst + cost) { // ìµœë‹¨ ê±°ë¦¬ ë°°ì—´ê³¼ ë¹„êµí•˜ì—¬ ê±°ì³ê°€ëŠ”ê²Œ ë” ì‹¸ë‹¤ë©´
+				dist[nidx] = dst + cost; // ìµœë‹¨ ê±°ë¦¬ ë°°ì—´ì˜ ê°’ì„ ë³€ê²½
+				pq.push({ dist[nidx], nidx }); // ê·¸ ì •ë³´ë¥¼ íž™ì— ë‹´ëŠ”ë‹¤.
 			}
 		}
 	}
@@ -91,7 +98,7 @@ int main() {
 
 
 /*
-// O(n^2)ÀÇ Ç®ÀÌ (½Ã°£, ¸Þ¸ð¸® ÃÊ°ú°¡ ³­´Ù)
+// O(n^2)ì˜ í’€ì´ (ì‹œê°„, ë©”ëª¨ë¦¬ ì´ˆê³¼ê°€ ë‚œë‹¤)
 #include <iostream>
 
 using namespace std;
