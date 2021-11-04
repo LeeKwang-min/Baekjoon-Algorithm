@@ -6,7 +6,7 @@
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=dltkdtn56)](https://solved.ac/dltkdtn56/)
 
-- 백준, 프로그래머스, 서적 알고리즘들을 풀고 풀이와 함께 저장
+- 백준, 프로그래머스, 서적 알고리즘들을 풀고 풀이와 함께 저장합니다.
 
 ## 풀이
 - 백준 풀이의 경우 각 파일의 상단에 주석을 사용하여 풀이 날짜와 풀이 방법을 적어두었다.
